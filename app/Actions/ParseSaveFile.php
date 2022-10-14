@@ -61,7 +61,7 @@ class ParseSaveFile
 
         [$content, $hash] = str($this->content)->explode('#');
 
-        $this->parseKeys(str($content));
+        $this->parseKeys(str($content)->lower());
     }
 
     private function parseKeys($content): array
@@ -73,15 +73,15 @@ class ParseSaveFile
             $firstWord = unpack('H*', $this->words[$index])[1];
 
             if (empty($this->words[$index + 1])) {
-                $data = hex2bin($content->after(str($firstWord)->upper()));
+                $data = hex2bin($content->after($firstWord));
             } else {
                 $nextWord = unpack('H*', $this->words[$index + 1])[1];
-                $data = hex2bin($content->betweenFirst(str($firstWord)->upper(), str($nextWord)->upper()));
+                $data = hex2bin($content->betweenFirst($firstWord, $nextWord));
             }
 
             $keys[$word] = str($data)->trim()->replaceMatches('/^.+\s{2,}/', '');
 
-            $content = $content->after(str($firstWord)->upper());
+            $content = $content->after($firstWord);
         }
 
         return $keys;
