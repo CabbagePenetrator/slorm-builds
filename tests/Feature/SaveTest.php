@@ -1,9 +1,10 @@
 <?php
 
 use App\Models\Save;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\File;
+use Illuminate\Http\UploadedFile;
 
 uses(RefreshDatabase::class);
 
@@ -16,11 +17,11 @@ it('can be created', function () {
 });
 
 it('can be uploaded', function () {
-    $file = Storage::get('saves/save_1');
+    $file = new UploadedFile($this->getSaveFilePath('save_1'), 'save_1');
 
     $this
         ->post('/save', [
-            'save' => $file
+            'file' => $file
         ])
         ->assertRedirect('/save/1');
 

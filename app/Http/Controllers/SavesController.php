@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Save;
 use Illuminate\Http\Request;
+use App\Actions\ParseSaveFile;
 
 class SavesController extends Controller
 {
@@ -12,8 +13,12 @@ class SavesController extends Controller
         return inertia('Saves/Create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, ParseSaveFile $parseSaveFileAction)
     {
+        $data = $parseSaveFileAction->execute(
+            $request->file('file')
+        );
+
         $save = Save::query()->create();
         
         return to_route('saves.show', $save);
