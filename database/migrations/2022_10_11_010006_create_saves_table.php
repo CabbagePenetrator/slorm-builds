@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('saves', function (Blueprint $table) {
             $table->id();
+            $table->string('version', 10);
             $table->timestamps();
         });
     }

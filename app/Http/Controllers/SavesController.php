@@ -19,7 +19,9 @@ class SavesController extends Controller
             $request->file('file')
         );
 
-        $save = Save::query()->create();
+        $save = Save::query()->create([
+            'version' => $data['version'],
+        ]);
         
         return to_route('saves.show', $save);
     }

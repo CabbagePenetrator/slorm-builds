@@ -17,7 +17,7 @@ class SaveFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'version' => '0.4.6a',
         ];
     }
 }

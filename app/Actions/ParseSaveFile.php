@@ -53,34 +53,52 @@ class ParseSaveFile
         'enemy_level',
     ];
 
-    public string $content;
-
-    public function execute(UploadedFile $file)
+    /**
+     * Parse the given save file.
+     *
+     * @param  UploadedFile $file
+     * @return array
+     */
+    public function execute(UploadedFile $file): array
     {
-        $this->content = $file->getContent();
+        [$content, $hash] = str($file->getContent())->explode('#');
 
-        [$content, $hash] = str($this->content)->explode('#');
-
-        $this->parseKeys(str($content)->lower());
+        return $this->parseKeys($content);
     }
-
-    private function parseKeys($content): array
+    
+    /**
+     * Return the save file data keyed by human-readable words.
+     *
+     * @param  string $content
+     * @return array
+     */
+    private function parseKeys(string $content): array
     {
+        $content = str($content)->lower();
+
         $keys = [];
 
         foreach ($this->words as $index => $word) {
-            // [hero,first_hero]
             $firstWord = unpack('H*', $this->words[$index])[1];
 
-            if (empty($this->words[$index + 1])) {
-                $data = hex2bin($content->after($firstWord));
-            } else {
+            $isAnotherWord = !empty($this->words[$index + 1]);
+
+            if ($isAnotherWord) {
                 $nextWord = unpack('H*', $this->words[$index + 1])[1];
                 $data = hex2bin($content->betweenFirst($firstWord, $nextWord));
+            } else {
+                $data = hex2bin($content->after($firstWord));
             }
 
-            $keys[$word] = str($data)->trim()->replaceMatches('/^.+\s{2,}/', '');
+            $keys[$word] = str($data)
+                ->trim()
+                ->matchAll('/[a-zA-Z0-9|.?]/')
+                ->join('');
 
+            /**
+             * Remove the save file content we've already read to avoid duplicates.
+             * For example, hero and first_hero or weapon_equip and weapon_data.
+             */
             $content = $content->after($firstWord);
         }
 
