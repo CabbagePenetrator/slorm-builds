@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\ParseSaveFile;
 use App\Models\Save;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,4 +39,12 @@ it('can be viewed', function () {
                 ->component('Saves/Show')
                 ->has('save')
         );
+});
+
+it('can parse save', function () {
+    $file = new UploadedFile($this->getSaveFilePath('save_1'), 'save_1');
+
+    $data = (new ParseSaveFile)->execute($file);
+
+    expect($data['version'])->toBe('0.4.6a');
 });
