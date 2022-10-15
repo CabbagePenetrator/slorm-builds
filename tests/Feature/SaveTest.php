@@ -26,7 +26,9 @@ it('can be uploaded', function () {
         ])
         ->assertRedirect('/save/1');
 
-    $this->assertDatabaseCount(Save::class, 1);
+    $this->assertDatabaseHas(Save::class, [
+        'version' => '0.4.6a',
+    ]);
 });
 
 it('can be viewed', function () {
@@ -39,12 +41,4 @@ it('can be viewed', function () {
                 ->component('Saves/Show')
                 ->has('save')
         );
-});
-
-it('can parse save', function () {
-    $file = new UploadedFile($this->getSaveFilePath('save_1'), 'save_1');
-
-    $data = (new ParseSaveFile)->execute($file);
-
-    expect($data['version'])->toBe('0.4.6a');
 });
