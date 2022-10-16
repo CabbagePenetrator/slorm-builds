@@ -33,7 +33,7 @@ it('can be uploaded', function () {
         ->assertRedirect('/save/1');
 
     $this->assertDatabaseHas(Save::class, [
-        'version' => '0.4.6a',
+        'version' => '0.4.6fa',
     ]);
 
     $this->assertDatabaseHas(Character::class, [
