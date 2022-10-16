@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Save;
 use Illuminate\Http\Request;
 use App\Actions\ParseSaveFile;
+use App\Enums\CharacterClass;
 
 class SavesController extends Controller
 {
@@ -25,6 +26,18 @@ class SavesController extends Controller
 
         $save = Save::query()->create([
             'version' => $data['version'],
+        ]);
+
+        $save->characters()->create([
+            'type' => CharacterClass::WARRIOR,
+        ]);
+
+        $save->characters()->create([
+            'type' => CharacterClass::HUNTRESS,
+        ]);
+
+        $save->characters()->create([
+            'type' => CharacterClass::MAGE,
         ]);
         
         return to_route('saves.show', $save);

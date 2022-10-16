@@ -1,11 +1,12 @@
 <?php
 
-use App\Actions\ParseSaveFile;
 use App\Models\Save;
+use App\Models\Character;
+use Illuminate\Http\File;
+use App\Enums\CharacterClass;
+use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\File;
-use Illuminate\Http\UploadedFile;
 
 uses(RefreshDatabase::class);
 
@@ -32,6 +33,21 @@ it('can be uploaded', function () {
 
     $this->assertDatabaseHas(Save::class, [
         'version' => '0.4.6a',
+    ]);
+
+    $this->assertDatabaseHas(Character::class, [
+        'save_id' => 1,
+        'type' => CharacterClass::WARRIOR,
+    ]);
+
+    $this->assertDatabaseHas(Character::class, [
+        'save_id' => 1,
+        'type' => CharacterClass::HUNTRESS,
+    ]);
+
+    $this->assertDatabaseHas(Character::class, [
+        'save_id' => 1,
+        'type' => CharacterClass::MAGE,
     ]);
 });
 
