@@ -21,7 +21,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->tinyInteger('type');
+            $table->unsignedTinyInteger('type');
             $table->unsignedTinyInteger('level');
             $table->timestamps();
         });
