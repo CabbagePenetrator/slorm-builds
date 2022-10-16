@@ -15,6 +15,10 @@ class SavesController extends Controller
 
     public function store(Request $request, ParseSaveFile $parseSaveFileAction)
     {
+        $request->validate([
+            'file' => ['required', 'file', 'mimetypes:text/plain', 'max:1024'],
+        ]);
+
         $data = $parseSaveFileAction->execute(
             $request->file('file')
         );

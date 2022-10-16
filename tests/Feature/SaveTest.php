@@ -18,7 +18,11 @@ it('can be created', function () {
 });
 
 it('can be uploaded', function () {
-    $file = new UploadedFile($this->getSaveFilePath('save_1'), 'save_1');
+    $file = new UploadedFile(
+        path: $this->getSaveFilePath('save_1'), 
+        originalName: 'save_1', 
+        test: true
+    );
 
     $this
         ->post('/save', [
