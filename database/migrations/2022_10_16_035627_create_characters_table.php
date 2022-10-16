@@ -22,7 +22,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->tinyInteger('type');
-            $table->unsignedBigInteger('xp');
+            $table->unsignedTinyInteger('level');
             $table->timestamps();
         });
     }

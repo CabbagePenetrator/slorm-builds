@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Save;
 use Illuminate\Http\Request;
-use App\Actions\ParseSaveFile;
-use App\Enums\CharacterClass;
+use App\Actions\StoreSave;
 
 class SavesController extends Controller
 {
@@ -14,36 +13,15 @@ class SavesController extends Controller
         return inertia('Saves/Create');
     }
 
-    public function store(Request $request, ParseSaveFile $parseSaveFileAction)
+    public function store(Request $request, StoreSave $storeSaveAction)
     {
         $request->validate([
             'file' => ['required', 'file', 'mimetypes:text/plain', 'max:1024'],
         ]);
 
-        $data = $parseSaveFileAction->execute(
+        $save = $storeSaveAction->execute(
             $request->file('file')
         );
-
-        $save = Save::query()->create([
-            'version' => $data['version'],
-        ]);
-
-        $xp = str($data['xp'])->explode('|');
-
-        $save->characters()->create([
-            'type' => CharacterClass::WARRIOR,
-            'xp' => $xp[0],
-        ]);
-
-        $save->characters()->create([
-            'type' => CharacterClass::HUNTRESS,
-            'xp' => $xp[1],
-        ]);
-
-        $save->characters()->create([
-            'type' => CharacterClass::MAGE,
-            'xp' => $xp[2],
-        ]);
         
         return to_route('saves.show', $save);
     }

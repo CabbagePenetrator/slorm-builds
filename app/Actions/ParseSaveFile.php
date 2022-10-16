@@ -63,7 +63,13 @@ class ParseSaveFile
     {
         [$content, $hash] = str($file->getContent())->explode('#');
 
-        return $this->parseKeys($content);
+        $data = $this->parseKeys($content);
+
+        $data['levels'] = str($data['xp'])->explode('|')->map(function ($xp) {
+            return $this->getLevelByXP($xp);
+        });
+
+        return $data;
     }
     
     /**
@@ -103,5 +109,22 @@ class ParseSaveFile
         }
 
         return $keys;
+    }
+
+    protected function getLevelByXP(int $xp): int
+    {
+        $xpAmounts = config('xp_amounts');
+
+        $level = 1;
+
+        foreach ($xpAmounts as $nextLevel) {
+            if ($xp >= $nextLevel) {
+                $level++;
+            } else {
+                return $level;
+            }
+        }
+
+        return $level;
     }
 }
