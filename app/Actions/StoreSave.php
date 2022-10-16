@@ -27,19 +27,49 @@ class StoreSave
             $mageLevel
         ] = $data['levels'];
 
-        $save->characters()->create([
+        $warrior = $save->characters()->create([
             'type' => CharacterClass::WARRIOR,
             'level' => $warriorLevel,
         ]);
 
-        $save->characters()->create([
+        $save->inventories()->create([
+            'character_id' => $warrior->id,
+            'is_stash' => false,
+        ]);
+
+        $huntress = $save->characters()->create([
             'type' => CharacterClass::HUNTRESS,
             'level' => $huntressLevel,
         ]);
 
-        $save->characters()->create([
+        $save->inventories()->create([
+            'character_id' => $huntress->id,
+            'is_stash' => false,
+        ]);
+
+        $mage = $save->characters()->create([
             'type' => CharacterClass::MAGE,
             'level' => $mageLevel,
+        ]);
+
+        $save->inventories()->create([
+            'character_id' => $mage->id,
+            'is_stash' => false,
+        ]);
+
+        $save->inventories()->createMany([
+            [
+                'is_stash' => true,
+            ],
+            [
+                'is_stash' => true,
+            ],
+            [
+                'is_stash' => true,
+            ],
+            [
+                'is_stash' => true,
+            ],
         ]);
 
         return $save;

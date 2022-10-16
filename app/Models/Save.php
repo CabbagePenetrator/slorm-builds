@@ -14,4 +14,9 @@ class Save extends Model
     {
         return $this->hasMany(Character::class);
     }
+
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(Inventory::class);
+    }
 }

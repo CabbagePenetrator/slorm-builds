@@ -2,6 +2,7 @@
 
 use App\Models\Save;
 use App\Models\Character;
+use App\Models\Inventory;
 use Illuminate\Http\File;
 use App\Enums\CharacterClass;
 use Illuminate\Http\UploadedFile;
@@ -41,16 +42,56 @@ it('can be uploaded', function () {
         'level' => 1,
     ]);
 
+    $this->assertDatabaseHas(Inventory::class, [
+        'character_id' => 1,
+        'is_stash' => false,
+    ]);
+
     $this->assertDatabaseHas(Character::class, [
         'save_id' => 1,
         'type' => CharacterClass::HUNTRESS,
         'level' => 1,
     ]);
 
+    $this->assertDatabaseHas(Inventory::class, [
+        'character_id' => 2,
+        'is_stash' => false,
+    ]);
+
     $this->assertDatabaseHas(Character::class, [
         'save_id' => 1,
         'type' => CharacterClass::MAGE,
         'level' => 60,
+    ]);
+
+    $this->assertDatabaseHas(Inventory::class, [
+        'save_id' => 1,
+        'character_id' => 3,
+        'is_stash' => false,
+    ]);
+
+    $this->assertDatabaseHas(Inventory::class, [
+        'id' => 4,
+        'save_id' => 1,
+        'is_stash' => true,
+    ]);
+
+    $this->assertDatabaseHas(Inventory::class, [
+        'id' => 5,
+        'save_id' => 1,
+        'is_stash' => true,
+    ]);
+
+    $this->assertDatabaseHas(Inventory::class, [
+        'id' => 6,
+        'save_id' => 1,
+        'is_stash' => true,
+    ]);
+
+    $this->assertDatabaseHas(Inventory::class, [
+        'id' => 7,
+        'save_id' => 1,
+        'is_stash' => true,
     ]);
 });
 
