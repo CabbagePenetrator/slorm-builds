@@ -28,16 +28,21 @@ class SavesController extends Controller
             'version' => $data['version'],
         ]);
 
+        $xp = str($data['xp'])->explode('|');
+
         $save->characters()->create([
             'type' => CharacterClass::WARRIOR,
+            'xp' => $xp[0],
         ]);
 
         $save->characters()->create([
             'type' => CharacterClass::HUNTRESS,
+            'xp' => $xp[1],
         ]);
 
         $save->characters()->create([
             'type' => CharacterClass::MAGE,
+            'xp' => $xp[2],
         ]);
         
         return to_route('saves.show', $save);

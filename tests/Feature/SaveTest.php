@@ -38,16 +38,19 @@ it('can be uploaded', function () {
     $this->assertDatabaseHas(Character::class, [
         'save_id' => 1,
         'type' => CharacterClass::WARRIOR,
+        'xp' => 0,
     ]);
 
     $this->assertDatabaseHas(Character::class, [
         'save_id' => 1,
         'type' => CharacterClass::HUNTRESS,
+        'xp' => 0,
     ]);
 
     $this->assertDatabaseHas(Character::class, [
         'save_id' => 1,
         'type' => CharacterClass::MAGE,
+        'xp' => 916384431,
     ]);
 });
 
