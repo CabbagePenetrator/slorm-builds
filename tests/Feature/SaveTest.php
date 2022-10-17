@@ -21,18 +21,6 @@ it('can be created', function () {
         );
 });
 
-it('can be viewed', function () {
-    $save = Save::factory()->create();
-
-    $this->get('/save/' . $save->id)
-        ->assertOk()
-        ->assertInertia(
-            fn (Assert $page) => $page
-                ->component('Saves/Show')
-                ->has('save')
-        );
-});
-
 it('can be uploaded', function () {
     $file = new UploadedFile(
         path: $this->getSaveFilePath('save_1'),
@@ -116,4 +104,16 @@ it('can be uploaded', function () {
         'inventory_position' => null,
         'type' => ItemType::HELMET,
     ]);
+});
+
+it('can be viewed', function () {
+    $save = Save::factory()->create();
+
+    $this->get('/save/' . $save->id)
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Saves/Show')
+                ->has('save')
+        );
 });
