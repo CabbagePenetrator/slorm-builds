@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Item;
 use App\Models\Save;
+use App\Enums\ItemType;
 use App\Models\Character;
 use App\Models\Inventory;
 use Illuminate\Http\File;
@@ -19,10 +21,22 @@ it('can be created', function () {
         );
 });
 
+it('can be viewed', function () {
+    $save = Save::factory()->create();
+
+    $this->get('/save/' . $save->id)
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Saves/Show')
+                ->has('save')
+        );
+});
+
 it('can be uploaded', function () {
     $file = new UploadedFile(
-        path: $this->getSaveFilePath('save_1'), 
-        originalName: 'save_1', 
+        path: $this->getSaveFilePath('save_1'),
+        originalName: 'save_1',
         test: true
     );
 
@@ -36,15 +50,11 @@ it('can be uploaded', function () {
         'version' => '0.4.6fa',
     ]);
 
+    // Characters
     $this->assertDatabaseHas(Character::class, [
         'save_id' => 1,
         'type' => CharacterClass::WARRIOR,
         'level' => 1,
-    ]);
-
-    $this->assertDatabaseHas(Inventory::class, [
-        'character_id' => 1,
-        'is_stash' => false,
     ]);
 
     $this->assertDatabaseHas(Character::class, [
@@ -53,15 +63,21 @@ it('can be uploaded', function () {
         'level' => 1,
     ]);
 
-    $this->assertDatabaseHas(Inventory::class, [
-        'character_id' => 2,
-        'is_stash' => false,
-    ]);
-
     $this->assertDatabaseHas(Character::class, [
         'save_id' => 1,
         'type' => CharacterClass::MAGE,
         'level' => 60,
+    ]);
+
+    // Inventories
+    $this->assertDatabaseHas(Inventory::class, [
+        'character_id' => 1,
+        'is_stash' => false,
+    ]);
+
+    $this->assertDatabaseHas(Inventory::class, [
+        'character_id' => 2,
+        'is_stash' => false,
     ]);
 
     $this->assertDatabaseHas(Inventory::class, [
@@ -93,16 +109,4 @@ it('can be uploaded', function () {
         'save_id' => 1,
         'is_stash' => true,
     ]);
-});
-
-it('can be viewed', function () {
-    $save = Save::factory()->create();
-
-    $this->get('/save/' . $save->id)
-        ->assertOk()
-        ->assertInertia(
-            fn (Assert $page) => $page
-                ->component('Saves/Show')
-                ->has('save')
-        );
 });
