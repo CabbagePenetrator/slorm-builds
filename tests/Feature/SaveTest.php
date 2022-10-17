@@ -98,12 +98,14 @@ it('can be uploaded', function () {
         'is_stash' => true,
     ]);
 
-    $this->assertDatabaseHas(Item::class, [
-        'character_id' => 3,
-        'inventory_id' => null,
-        'inventory_position' => null,
-        'type' => ItemType::HELMET,
-    ]);
+    foreach (ItemType::cases() as $type) {
+        $this->assertDatabaseHas(Item::class, [
+            'character_id' => 3,
+            'inventory_id' => null,
+            'inventory_position' => null,
+            'type' => $type,
+        ]);
+    }
 });
 
 it('can be viewed', function () {
