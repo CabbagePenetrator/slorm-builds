@@ -69,6 +69,8 @@ class ParseSaveFile
             return $this->getLevelByXP($xp);
         });
 
+        $data['items'] = $this->parseItems($data['inventory']);
+
         return $data;
     }
     
@@ -98,7 +100,7 @@ class ParseSaveFile
 
             $keys[$word] = str($data)
                 ->trim()
-                ->matchAll('/[a-zA-Z0-9|.?]/')
+                ->matchAll('/[a-zA-Z0-9|.?;:-]/')
                 ->join('');
 
             /**
@@ -126,5 +128,75 @@ class ParseSaveFile
         }
 
         return $level;
+    }
+
+    protected function parseItems(string $inventory): array
+    {
+        [
+            $warriorInventory,
+            $huntressInventory,
+            $mageInventory,
+        ] = str($inventory)->explode('|');
+
+        $warriorItems = str($warriorInventory)
+            ->explode(';')
+            ->filter(function ($item) {
+                return $this->isEquipable($item);
+            })
+            ->map(function ($item) {
+                return $this->parseItem($item);
+            })
+            ->toArray();
+
+        $huntressItems = str($huntressInventory)
+            ->explode(';')
+            ->filter(function ($item) {
+                return $this->isEquipable($item);
+            })
+            ->map(function ($item) {
+                return $this->parseItem($item);
+            })
+            ->toArray();
+
+        $mageItems = str($mageInventory)
+            ->explode(';')
+            ->filter(function ($item) {
+                return $this->isEquipable($item);
+            })
+            ->map(function ($item) {
+                return $this->parseItem($item);
+            })
+            ->toArray();
+
+        return [
+            $warriorItems, 
+            $huntressItems, 
+            $mageItems,
+        ];
+    }
+
+    protected function parseItem(string $item): array
+    {
+        $base = str($item)->before(':');
+
+        [$generic] = str($base)->explode('-');
+
+        $data = str($generic)->explode('.');
+
+        $item = [
+            'type' => $data[1],
+        ];
+
+        return $item;
+    }
+
+    protected function parseResource()
+    {
+
+    }
+
+    protected function isEquipable(string $item): bool
+    {
+        return !str($item)->startsWith('0') && str($item)->length() > 1;
     }
 }

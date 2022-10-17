@@ -109,4 +109,11 @@ it('can be uploaded', function () {
         'save_id' => 1,
         'is_stash' => true,
     ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'inventory_id' => null,
+        'inventory_position' => null,
+        'type' => ItemType::HELMET,
+    ]);
 });

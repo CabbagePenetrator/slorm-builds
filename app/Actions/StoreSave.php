@@ -27,6 +27,12 @@ class StoreSave
             $mageLevel
         ] = $data['levels'];
 
+        [
+            $warriorItems,
+            $huntressItems,
+            $mageItems
+        ] = $data['items'];
+
         $warrior = $save->characters()->create([
             'type' => CharacterClass::WARRIOR,
             'level' => $warriorLevel,
@@ -71,6 +77,12 @@ class StoreSave
                 'is_stash' => true,
             ],
         ]);
+
+        $warrior->items()->createMany($warriorItems);
+
+        $huntress->items()->createMany($huntressItems);
+
+        $mage->items()->createMany($mageItems);
 
         return $save;
     }
