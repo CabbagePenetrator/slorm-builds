@@ -186,6 +186,7 @@ class ParseSaveFile
         $parsedItem = [
             'type' => $data[1],
             'level' => $data[2],
+            'reinforcement' => $data[5],
         ];
 
         return $parsedItem;

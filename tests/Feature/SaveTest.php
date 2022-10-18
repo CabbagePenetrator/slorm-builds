@@ -102,66 +102,77 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::HELMET,
         'level' => 56,
+        'reinforcement' => 6,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::BODY,
         'level' => 60,
+        'reinforcement' => 8,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::SHOULDER,
         'level' => 55,
+        'reinforcement' => 6,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::BRACERS,
         'level' => 60,
+        'reinforcement' => 7,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::GLOVE,
         'level' => 60,
+        'reinforcement' => 7,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::BOOT,
         'level' => 60,
+        'reinforcement' => 8,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::RING,
         'level' => 55,
+        'reinforcement' => 8,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::RING,
         'level' => 47,
+        'reinforcement' => 9,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::AMULET,
         'level' => 60,
+        'reinforcement' => 8,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::BELT,
         'level' => 59,
+        'reinforcement' => 8,
     ]);
 
     $this->assertDatabaseHas(Item::class, [
         'character_id' => 3,
         'type' => ItemType::CAPE,
         'level' => 58,
+        'reinforcement' => 9,
     ]);
 });
 
