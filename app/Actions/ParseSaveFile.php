@@ -183,11 +183,12 @@ class ParseSaveFile
 
         $data = str($generic)->explode('.');
 
-        $item = [
+        $parsedItem = [
             'type' => $data[1],
+            'level' => $data[2],
         ];
 
-        return $item;
+        return $parsedItem;
     }
 
     protected function parseResource()

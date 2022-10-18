@@ -30,6 +30,7 @@ return new class extends Migration
 
             $table->unsignedTinyInteger('inventory_position')->nullable();
             $table->unsignedTinyInteger('type');
+            $table->unsignedTinyInteger('level');
             $table->timestamps();
         });
     }

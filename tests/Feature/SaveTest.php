@@ -98,14 +98,71 @@ it('can be uploaded', function () {
         'is_stash' => true,
     ]);
 
-    foreach (ItemType::cases() as $type) {
-        $this->assertDatabaseHas(Item::class, [
-            'character_id' => 3,
-            'inventory_id' => null,
-            'inventory_position' => null,
-            'type' => $type,
-        ]);
-    }
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::HELMET,
+        'level' => 56,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::BODY,
+        'level' => 60,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::SHOULDER,
+        'level' => 55,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::BRACERS,
+        'level' => 60,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::GLOVE,
+        'level' => 60,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::BOOT,
+        'level' => 60,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::RING,
+        'level' => 55,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::RING,
+        'level' => 47,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::AMULET,
+        'level' => 60,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::BELT,
+        'level' => 59,
+    ]);
+
+    $this->assertDatabaseHas(Item::class, [
+        'character_id' => 3,
+        'type' => ItemType::CAPE,
+        'level' => 58,
+    ]);
 });
 
 it('can be viewed', function () {
