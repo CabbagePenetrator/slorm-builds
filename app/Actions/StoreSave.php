@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\Models\Save;
 use App\Enums\CharacterClass;
 use App\Actions\ParseSaveFile;
+use App\Models\Item;
 use Illuminate\Http\UploadedFile;
 
 class StoreSave
@@ -78,11 +79,23 @@ class StoreSave
             ],
         ]);
 
-        $warrior->items()->createMany($warriorItems);
+        $warrior->items()->createMany(
+            collect($warriorItems)->pluck('item')
+        );
 
-        $huntress->items()->createMany($huntressItems);
+        $huntress->items()->createMany(
+            collect($huntressItems)->pluck('item')
+        );
 
-        $mage->items()->createMany($mageItems);
+        collect($mageItems)->each(function ($mageItem) use ($mage) {
+            $item = $mage->items()->create(
+                $mageItem['item']
+            );
+
+            $item->affixes()->createMany(
+                $mageItem['affixes']
+            );
+        });
 
         return $save;
     }

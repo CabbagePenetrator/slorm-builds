@@ -71,7 +71,7 @@ class ParseSaveFile
             ->explode('|')
             ->map(fn ($xp) => $this->getLevelByXP($xp));
 
-        $data['items'] = $this->parseItems($data['inventory']);
+        $data['items'] = $this->parseInventories($data['inventory']);
 
         return $data;
     }
@@ -132,7 +132,7 @@ class ParseSaveFile
         return $level;
     }
 
-    protected function parseItems(string $inventory): array
+    protected function parseInventories(string $inventory): array
     {
         [
             $warriorInventory,
@@ -180,14 +180,15 @@ class ParseSaveFile
 
         $rarity = $this->getRarityFromAffixes($affixes);
 
-        $parsedItem = [
-            'type' => $data[1],
-            'level' => $data[2],
-            'reinforcement' => $data[5],
-            'rarity' => $rarity,
+        return [
+            'item' => [
+                'type' => $data[1],
+                'level' => $data[2],
+                'reinforcement' => $data[5],
+                'rarity' => $rarity,
+            ],
+            'affixes' => $affixes->toArray(),
         ];
-
-        return $parsedItem;
     }
 
     protected function parseResource()
@@ -214,7 +215,7 @@ class ParseSaveFile
         ] = str($affix)->explode('.');
 
         return [
-            'rarity' => $rarity,
+            'rarity' => $this->getRarityFromAffix($rarity),
         ];
     }
 
@@ -222,22 +223,45 @@ class ParseSaveFile
     {
         $rarities = $affixes->pluck('rarity');
 
-        if ($rarities->contains('L')) {
+        if ($rarities->contains(ItemRarity::LEGENDARY)) {
             return ItemRarity::LEGENDARY;
         }
 
-        if ($rarities->contains('E')) {
+        if ($rarities->contains(ItemRarity::EPIC)) {
             return ItemRarity::EPIC;
         }
 
-        if ($rarities->contains('R')) {
+        if ($rarities->contains(ItemRarity::RARE)) {
             return ItemRarity::RARE;
         }
 
-        if ($rarities->contains('M')) {
+        if ($rarities->contains(ItemRarity::MAGIC)) {
             return ItemRarity::MAGIC;
         }
 
+        return ItemRarity::NORMAL;
+    }
+
+    protected function getRarityFromAffix(string $affix): ItemRarity
+    {
+        $rarity = str($affix);
+
+        if ($rarity->startsWith('L')) {
+            return ItemRarity::LEGENDARY;
+        }
+
+        if ($rarity->startsWith('E')) {
+            return ItemRarity::EPIC;
+        }
+
+        if ($rarity->startsWith('R')) {
+            return ItemRarity::RARE;
+        }
+
+        if ($rarity->startsWith('M')) {
+            return ItemRarity::MAGIC;
+        }
+        
         return ItemRarity::NORMAL;
     }
 }

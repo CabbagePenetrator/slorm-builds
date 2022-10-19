@@ -2,12 +2,13 @@
 
 use App\Models\Item;
 use App\Models\Save;
+use App\Models\Affix;
 use App\Enums\ItemType;
+use App\Enums\ItemRarity;
 use App\Models\Character;
 use App\Models\Inventory;
 use Illuminate\Http\File;
 use App\Enums\CharacterClass;
-use App\Enums\ItemRarity;
 use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -185,6 +186,33 @@ it('can be uploaded', function () {
         'level' => 58,
         'rarity' => ItemRarity::EPIC,
         'reinforcement' => 9,
+    ]);
+
+    $this->assertDatabaseHas(Affix::class, [
+        'id' => 1,
+        'item_id' => 1,
+        'rarity' => ItemRarity::LEGENDARY,
+    ]);
+
+    $this->assertDatabaseHas(Affix::class, [
+        'id' => 2,
+        'item_id' => 1,
+        'rarity' => ItemRarity::NORMAL,
+    ]);
+
+    $this->assertDatabaseHas(Affix::class, [
+        'item_id' => 1,
+        'rarity' => ItemRarity::MAGIC,
+    ]);
+
+    $this->assertDatabaseHas(Affix::class, [
+        'item_id' => 1,
+        'rarity' => ItemRarity::RARE,
+    ]);
+
+    $this->assertDatabaseHas(Affix::class, [
+        'item_id' => 1,
+        'rarity' => ItemRarity::LEGENDARY,
     ]);
 });
 
