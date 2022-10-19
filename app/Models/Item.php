@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ItemRarity;
 use App\Enums\ItemType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,5 +18,6 @@ class Item extends Model
      */
     protected $casts = [
         'type' => ItemType::class,
+        'rarity' => ItemRarity::class,
     ];
 }

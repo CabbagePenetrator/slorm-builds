@@ -7,6 +7,7 @@ use App\Models\Character;
 use App\Models\Inventory;
 use Illuminate\Http\File;
 use App\Enums\CharacterClass;
+use App\Enums\ItemRarity;
 use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -102,6 +103,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::HELMET,
         'level' => 56,
+        'rarity' => ItemRarity::LEGENDARY,
         'reinforcement' => 6,
     ]);
 
@@ -109,6 +111,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::BODY,
         'level' => 60,
+        'rarity' => ItemRarity::EPIC,
         'reinforcement' => 8,
     ]);
 
@@ -116,6 +119,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::SHOULDER,
         'level' => 55,
+        'rarity' => ItemRarity::LEGENDARY,
         'reinforcement' => 6,
     ]);
 
@@ -123,6 +127,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::BRACERS,
         'level' => 60,
+        'rarity' => ItemRarity::LEGENDARY,
         'reinforcement' => 7,
     ]);
 
@@ -130,6 +135,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::GLOVE,
         'level' => 60,
+        'rarity' => ItemRarity::LEGENDARY,
         'reinforcement' => 7,
     ]);
 
@@ -137,6 +143,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::BOOT,
         'level' => 60,
+        'rarity' => ItemRarity::EPIC,
         'reinforcement' => 8,
     ]);
 
@@ -144,6 +151,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::RING,
         'level' => 55,
+        'rarity' => ItemRarity::EPIC,
         'reinforcement' => 8,
     ]);
 
@@ -151,6 +159,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::RING,
         'level' => 47,
+        'rarity' => ItemRarity::LEGENDARY,
         'reinforcement' => 9,
     ]);
 
@@ -158,6 +167,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::AMULET,
         'level' => 60,
+        'rarity' => ItemRarity::LEGENDARY,
         'reinforcement' => 8,
     ]);
 
@@ -165,6 +175,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::BELT,
         'level' => 59,
+        'rarity' => ItemRarity::EPIC,
         'reinforcement' => 8,
     ]);
 
@@ -172,6 +183,7 @@ it('can be uploaded', function () {
         'character_id' => 3,
         'type' => ItemType::CAPE,
         'level' => 58,
+        'rarity' => ItemRarity::EPIC,
         'reinforcement' => 9,
     ]);
 });

@@ -2,7 +2,9 @@
 
 namespace App\Actions;
 
+use App\Enums\ItemRarity;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 
 class ParseSaveFile
 {
@@ -178,15 +180,27 @@ class ParseSaveFile
     protected function parseItem(string $item): array
     {
         $base = str($item)->before(':');
+        $bonuses = str($item)->after(':')->explode(':');
 
-        [$generic] = str($base)->explode('-');
+        $generic = str($base)->explode('-')->first();
 
         $data = str($generic)->explode('.');
+
+        $affixes = $bonuses
+            ->filter(function ($bonus) {
+                return $this->isAffix($bonus);
+            })
+            ->map(function ($affix) {
+                return $this->parseAffix($affix);
+            });
+
+        $rarity = $this->getRarityFromAffixes($affixes);
 
         $parsedItem = [
             'type' => $data[1],
             'level' => $data[2],
             'reinforcement' => $data[5],
+            'rarity' => $rarity,
         ];
 
         return $parsedItem;
@@ -200,5 +214,46 @@ class ParseSaveFile
     protected function isEquipable(string $item): bool
     {
         return !str($item)->startsWith('0') && str($item)->length() > 1;
+    }
+
+    protected function isAffix(string $bonus): bool
+    {
+        $values = str($bonus)->explode('.')->count();
+
+        return in_array($values, [4, 5, 6]);
+    }
+
+    protected function parseAffix(string $affix): array
+    {
+        [
+            $rarity, 
+        ] = str($affix)->explode('.');
+
+        return [
+            'rarity' => $rarity,
+        ];
+    }
+
+    protected function getRarityFromAffixes(Collection $affixes): ItemRarity
+    {
+        $rarities = $affixes->pluck('rarity');
+
+        if ($rarities->contains('L')) {
+            return ItemRarity::LEGENDARY;
+        }
+
+        if ($rarities->contains('E')) {
+            return ItemRarity::EPIC;
+        }
+
+        if ($rarities->contains('R')) {
+            return ItemRarity::RARE;
+        }
+
+        if ($rarities->contains('M')) {
+            return ItemRarity::MAGIC;
+        }
+
+        return ItemRarity::NORMAL;
     }
 }
