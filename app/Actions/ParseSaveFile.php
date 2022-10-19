@@ -67,9 +67,9 @@ class ParseSaveFile
 
         $data = $this->parseKeys($content);
 
-        $data['levels'] = str($data['xp'])->explode('|')->map(function ($xp) {
-            return $this->getLevelByXP($xp);
-        });
+        $data['levels'] = str($data['xp'])
+            ->explode('|')
+            ->map(fn ($xp) => $this->getLevelByXP($xp));
 
         $data['items'] = $this->parseItems($data['inventory']);
 
@@ -142,32 +142,20 @@ class ParseSaveFile
 
         $warriorItems = str($warriorInventory)
             ->explode(';')
-            ->filter(function ($item) {
-                return $this->isEquipable($item);
-            })
-            ->map(function ($item) {
-                return $this->parseItem($item);
-            })
+            ->filter(fn ($item) => $this->isEquipable($item))
+            ->map(fn ($item) => $this->parseItem($item))
             ->toArray();
 
         $huntressItems = str($huntressInventory)
             ->explode(';')
-            ->filter(function ($item) {
-                return $this->isEquipable($item);
-            })
-            ->map(function ($item) {
-                return $this->parseItem($item);
-            })
+            ->filter(fn ($item) => $this->isEquipable($item))
+            ->map(fn ($item) => $this->parseItem($item))
             ->toArray();
 
         $mageItems = str($mageInventory)
             ->explode(';')
-            ->filter(function ($item) {
-                return $this->isEquipable($item);
-            })
-            ->map(function ($item) {
-                return $this->parseItem($item);
-            })
+            ->filter(fn ($item) => $this->isEquipable($item))
+            ->map(fn ($item) => $this->parseItem($item))
             ->toArray();
 
         return [
@@ -187,12 +175,8 @@ class ParseSaveFile
         $data = str($generic)->explode('.');
 
         $affixes = $bonuses
-            ->filter(function ($bonus) {
-                return $this->isAffix($bonus);
-            })
-            ->map(function ($affix) {
-                return $this->parseAffix($affix);
-            });
+            ->filter(fn ($bonus) => $this->isAffix($bonus))
+            ->map(fn ($affix) => $this->parseAffix($affix));
 
         $rarity = $this->getRarityFromAffixes($affixes);
 
