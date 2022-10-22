@@ -212,10 +212,19 @@ class ParseSaveFile
     {
         [
             $rarity, 
+            $type, 
+            $value, 
+            $locked, 
         ] = str($affix)->explode('.');
+
+        $purity = str($affix)->explode('.')[4] ?? null;
 
         return [
             'rarity' => $this->getRarityFromAffix($rarity),
+            'type' => $type,
+            'value' => $value,
+            'locked' => (bool) $locked,
+            'purity' => $purity,
         ];
     }
 

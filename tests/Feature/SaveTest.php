@@ -189,13 +189,18 @@ it('can be uploaded', function () {
     ]);
 
     $this->assertDatabaseHas(Affix::class, [
-        'id' => 1,
         'item_id' => 1,
         'rarity' => ItemRarity::LEGENDARY,
     ]);
 
     $this->assertDatabaseHas(Affix::class, [
         'id' => 2,
+        'item_id' => 1,
+        'rarity' => ItemRarity::NORMAL,
+    ]);
+
+    $this->assertDatabaseHas(Affix::class, [
+        'id' => 3,
         'item_id' => 1,
         'rarity' => ItemRarity::NORMAL,
     ]);
@@ -208,11 +213,6 @@ it('can be uploaded', function () {
     $this->assertDatabaseHas(Affix::class, [
         'item_id' => 1,
         'rarity' => ItemRarity::RARE,
-    ]);
-
-    $this->assertDatabaseHas(Affix::class, [
-        'item_id' => 1,
-        'rarity' => ItemRarity::LEGENDARY,
     ]);
 });
 

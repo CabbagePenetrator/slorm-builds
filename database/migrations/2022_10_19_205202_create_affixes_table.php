@@ -22,6 +22,10 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->unsignedTinyInteger('rarity');
+            $table->unsignedTinyInteger('type');
+            $table->unsignedTinyInteger('purity')->nullable();
+            $table->boolean('locked');
+            $table->unsignedTinyInteger('value');
             $table->timestamps();
         });
     }
