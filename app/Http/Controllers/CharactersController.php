@@ -29,15 +29,15 @@ class CharactersController extends Controller
 
         return response()->json([
             [
-                'type' => CharacterClass::WARRIOR,
+                'name' => CharacterClass::WARRIOR->name(),
                 'level' => $warriorLevel,
             ],
             [
-                'type' => CharacterClass::HUNTRESS,
+                'name' => CharacterClass::HUNTRESS->name(),
                 'level' => $huntressLevel,
             ],
             [
-                'type' => CharacterClass::MAGE,
+                'name' => CharacterClass::MAGE->name(),
                 'level' => $mageLevel,
             ],
         ]);

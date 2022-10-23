@@ -20,15 +20,15 @@ it('can get characters', function () {
         ->assertOk()
         ->assertJson([
             [
-                'type' => CharacterClass::WARRIOR->value,
+                'name' => CharacterClass::WARRIOR->name(),
                 'level' => 1,
             ],
             [
-                'type' => CharacterClass::HUNTRESS->value,
+                'name' => CharacterClass::HUNTRESS->name(),
                 'level' => 1,
             ],
             [
-                'type' => CharacterClass::MAGE->value,
+                'name' => CharacterClass::MAGE->name(),
                 'level' => 60,
             ]
         ]);
