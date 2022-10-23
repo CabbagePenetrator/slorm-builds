@@ -17,6 +17,10 @@ class CharactersController extends Controller
      */
     public function __invoke(Request $request, ParseSaveFile $parseSaveFileAction)
     {
+        $request->validate([
+            'file' => ['required', 'file', 'mimetypes:text/plain', 'max:1024'],
+        ]);
+        
         $data = $parseSaveFileAction->execute(
             $request->file('file')
         );

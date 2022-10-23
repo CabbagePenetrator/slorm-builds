@@ -26,7 +26,7 @@ Route::post('/save', [SavesController::class, 'store'])
 Route::get('/save/{save}', [SavesController::class, 'show'])
     ->name('saves.show');
 
-Route::post('/save/characters', CharactersController::class)
+Route::post('/characters', CharactersController::class)
     ->name('characters');
 
 Route::get('/dashboard', function () {

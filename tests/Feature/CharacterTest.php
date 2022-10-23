@@ -14,7 +14,7 @@ it('can get characters', function () {
     );
 
     $this
-        ->post('/save/characters', [
+        ->post('/characters', [
             'file' => $file,
         ])
         ->assertOk()
