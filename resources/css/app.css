@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Berlin Sans FB';
+        src: url('/fonts/berlin-sans-fb-regular.woff2') format('woff2');
+        font-weight: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Berlin Sans FB';
+        src: url('/fonts/berlin-sans-fb-bold.woff2') format('woff2');
+        font-weight: bold;
+        font-display: swap;
+    }
+}
