@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\SavesController;
+use App\Http\Controllers\CharactersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Route::post('/save', [SavesController::class, 'store'])
 
 Route::get('/save/{save}', [SavesController::class, 'show'])
     ->name('saves.show');
+
+Route::post('/save/characters', CharactersController::class)
+    ->name('save.characters');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
