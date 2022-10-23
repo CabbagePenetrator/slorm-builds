@@ -27,7 +27,7 @@ Route::get('/save/{save}', [SavesController::class, 'show'])
     ->name('saves.show');
 
 Route::post('/save/characters', CharactersController::class)
-    ->name('save.characters');
+    ->name('characters');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
