@@ -1,11 +1,13 @@
 <script setup lang="ts">
 defineProps<{
     loading?: boolean
+    type?: 'submit' | 'button'
 }>()
 </script>
 
 <template>
     <button
+        :type="type ?? 'submit'"
         :disabled="loading"
         class="
             relative

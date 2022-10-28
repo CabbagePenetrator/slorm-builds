@@ -26,9 +26,9 @@ const submit = () => {
     <GuestLayout>
         <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <p v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
-        </div>
+        </p>
 
         <form
             @submit.prevent="submit"
@@ -58,6 +58,7 @@ const submit = () => {
                     required
                     autofocus
                 />
+
                 <GuestInputField
                     v-model="form.password"
                     :error="form.errors.password"
@@ -68,13 +69,14 @@ const submit = () => {
                 />
             </div>
 
-            <Button :loading="form.processing" class="mt-8 sm:w-[201px]"
-                >Login</Button
-            >
+            <Button :loading="form.processing" class="mt-8 sm:w-[201px]">
+                Login
+            </Button>
+
             <div class="text-center mt-8">
-                <Link :href="route('password.request')"
-                    >Forgot your password?</Link
-                >
+                <Link :href="route('password.request')">
+                    Forgot your password?
+                </Link>
             </div>
         </form>
     </GuestLayout>

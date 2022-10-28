@@ -34,7 +34,7 @@ const onInput = (payload: Event) => {
                 "
                 :value="modelValue"
                 @input="onInput"
-                :type="type"
+                :type="type ?? 'text'"
                 :required="required"
                 :autocomplete="autoComplete"
                 :autofocus="autofocus"
