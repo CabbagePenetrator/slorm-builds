@@ -24,8 +24,8 @@ defineProps<{
             text-lg
             font-normal
             focus:outline focus:outline-2 focus:outline-red-400
-            before:content-[url(/vb.svg)]
-            after:content-[url(/vb.svg)]
+            before:content-[url(/button-edge.svg)]
+            after:content-[url(/button-edge.svg)]
             before:top-0
             before:left-0
             before:absolute
