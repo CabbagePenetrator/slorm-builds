@@ -1,24 +1,47 @@
-<script setup>
-import ButtonEdge from '@/Components/ButtonEdge.vue'
-
-defineProps({
-    loading: {
-        type: Boolean,
-        default: false,
-    },
-})
+<script setup lang="ts">
+defineProps<{
+    loading?: boolean
+    type?: 'submit' | 'button'
+}>()
 </script>
 
 <template>
     <button
+        :type="type ?? 'submit'"
         :disabled="loading"
-        class="relative flex items-center justify-between gap-x-9 bg-red-500 w-full h-[52px] text-lg font-normal focus:outline focus:outline-2 focus:outline-red-400"
+        class="
+            relative
+            border-t-8
+            border-t-red-400
+            [border-style:inset]
+            border-b-8
+            border-b-red-600
+            grid
+            text-center
+            place-content-center
+            gap-x-9
+            bg-red-500
+            w-full
+            h-[52px]
+            text-lg
+            font-normal
+            focus:outline focus:outline-2 focus:outline-red-400
+            before:content-[url(/button-edge.svg)]
+            after:content-[url(/button-edge.svg)]
+            before:top-0
+            before:left-0
+            before:absolute
+            before:translate-y-[-8px]
+            before:h-full
+            after:top-0
+            after:right-0
+            after:absolute
+            after:translate-y-[-8px]
+            after:scale-x-[-1]
+            after:h-full
+        "
     >
-        <div class="h-2 bg-red-400 absolute top-0 left-0 right-0"></div>
-        <div class="h-2 bg-red-600 absolute bottom-0 left-0 right-0"></div>
-        <ButtonEdge position="left" />
         <div v-if="loading" class="btn-spinner"></div>
         <slot v-else />
-        <ButtonEdge position="right" />
     </button>
 </template>
