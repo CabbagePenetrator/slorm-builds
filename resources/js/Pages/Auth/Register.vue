@@ -65,7 +65,7 @@ const submit = () => {
         />
 
         <GuestInputField
-          title="Password"
+          title="Confirm password"
           v-model="form.password_confirmation"
           :error="form.errors.password_confirmation"
           type="password"
