@@ -6,7 +6,7 @@ use App\Actions\ParseSaveFile;
 use App\Enums\CharacterClass;
 use Illuminate\Http\Request;
 
-class CharactersController extends Controller
+class CharacterController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -20,7 +20,7 @@ class CharactersController extends Controller
         $request->validate([
             'file' => ['required', 'file', 'mimetypes:text/plain', 'max:1024'],
         ]);
-        
+
         $data = $parseSaveFileAction->execute(
             $request->file('file')
         );

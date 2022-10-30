@@ -4,7 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\SavesController;
-use App\Http\Controllers\CharactersController;
+use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\BuildController;
 
 /*
@@ -27,7 +27,7 @@ Route::post('/save', [SavesController::class, 'store'])
 Route::get('/save/{save}', [SavesController::class, 'show'])
     ->name('saves.show');
 
-Route::post('/characters', CharactersController::class)
+Route::post('/characters', CharacterController::class)
     ->name('characters');
 
 /** Builds */
