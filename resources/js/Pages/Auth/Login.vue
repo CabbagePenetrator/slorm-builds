@@ -26,17 +26,16 @@ const submit = () => {
   <GuestLayout>
     <Head title="Log in" />
 
-    <p
-      v-if="status"
-      class="mb-4 text-sm font-medium text-green-600"
-    >
-      {{ status }}
-    </p>
-
     <form
       @submit.prevent="submit"
       class="w-full border-4 border-gray-600 bg-gray-900 px-4 pt-6 pb-8 sm:max-w-[470px] sm:px-12 sm:pt-7"
     >
+      <p
+        v-if="status"
+        class="mb-4 text-sm font-medium text-green-600"
+      >
+        {{ status }}
+      </p>
       <h2 class="text-3xl">Login</h2>
       <p>
         <span class="opacity-50">Don't have an account?</span>
