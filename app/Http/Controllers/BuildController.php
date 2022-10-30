@@ -101,7 +101,7 @@ class BuildController extends Controller
             )
         );
 
-        return to_route('builds.show', $build);
+        return to_route('builds.edit', $build);
     }
 
     /**

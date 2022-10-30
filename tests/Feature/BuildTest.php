@@ -102,7 +102,7 @@ it('can be updated', function () {
         'title' => 'new title',
         'description' => 'new description',
     ])
-    ->assertRedirect('/builds/' . $build->slug);
+    ->assertRedirect('/builds/'.$build->slug.'/edit');
 
     assertDatabaseHas(Build::class, [
         'title' => 'new title',
