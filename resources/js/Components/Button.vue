@@ -1,47 +1,20 @@
 <script setup lang="ts">
 defineProps<{
-    loading?: boolean
-    type?: 'submit' | 'button'
+  loading?: boolean
+  type?: 'submit' | 'button'
 }>()
 </script>
 
 <template>
-    <button
-        :type="type ?? 'submit'"
-        :disabled="loading"
-        class="
-            relative
-            border-t-8
-            border-t-red-400
-            [border-style:inset]
-            border-b-8
-            border-b-red-600
-            grid
-            text-center
-            place-content-center
-            gap-x-9
-            bg-red-500
-            w-full
-            h-[52px]
-            text-lg
-            font-normal
-            focus:outline focus:outline-2 focus:outline-red-400
-            before:content-[url(/button-edge.svg)]
-            after:content-[url(/button-edge.svg)]
-            before:top-0
-            before:left-0
-            before:absolute
-            before:translate-y-[-8px]
-            before:h-full
-            after:top-0
-            after:right-0
-            after:absolute
-            after:translate-y-[-8px]
-            after:scale-x-[-1]
-            after:h-full
-        "
-    >
-        <div v-if="loading" class="btn-spinner"></div>
-        <slot v-else />
-    </button>
+  <button
+    :type="type ?? 'submit'"
+    :disabled="loading"
+    class="relative grid h-[52px] w-full place-content-center gap-x-9 border-t-8 border-b-8 border-t-red-400 border-b-red-600 bg-red-500 text-center text-lg font-normal [border-style:inset] before:absolute before:top-0 before:left-0 before:h-full before:translate-y-[-8px] before:content-[url(/button-edge.svg)] after:absolute after:top-0 after:right-0 after:h-full after:translate-y-[-8px] after:scale-x-[-1] after:content-[url(/button-edge.svg)] focus:outline focus:outline-2 focus:outline-red-400"
+  >
+    <div
+      v-if="loading"
+      class="btn-spinner"
+    ></div>
+    <slot v-else />
+  </button>
 </template>

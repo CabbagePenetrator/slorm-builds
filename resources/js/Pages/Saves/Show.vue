@@ -1,3 +1,3 @@
 <template>
-    <div>save show</div>
+  <div>save show</div>
 </template>
