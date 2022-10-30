@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class BuildController extends Controller
 {
+    /**
+     * Display all builds
+     *
+     * @return \Inertia\Response
+     */
     public function index()
     {
         return inertia('Builds/Index', [
@@ -14,11 +19,22 @@ class BuildController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for creating a new build.
+     *
+     * @return \Inertia\Response
+     */
     public function create()
     {
         return inertia('Builds/Create');
     }
 
+    /**
+     * Store the newly created build in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -37,6 +53,12 @@ class BuildController extends Controller
         return to_route('builds.show', $build);
     }
 
+    /**
+     * Show the build.
+     *
+     * @param  \App\Models\Build $build
+     * @return \Inertia\Response
+     */
     public function show(Build $build)
     {
         return inertia('Builds/Show', [
@@ -44,6 +66,12 @@ class BuildController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing the build.
+     *
+     * @param  \App\Models\Build $build
+     * @return \Inertia\Response
+     */
     public function edit(Build $build)
     {
         return inertia('Builds/Edit', [
@@ -51,6 +79,13 @@ class BuildController extends Controller
         ]);
     }
 
+    /**
+     * Update the build in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Build $build
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Build $build)
     {
         $request->validate([
@@ -68,6 +103,12 @@ class BuildController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Remove the build from storage.
+     *
+     * @param  \App\Models\Build $build
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Build $build)
     {
         $build->delete();
