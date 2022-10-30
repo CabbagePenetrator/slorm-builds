@@ -85,7 +85,7 @@ class BuildController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Models\Build $build
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Build $build)
     {
@@ -101,19 +101,19 @@ class BuildController extends Controller
             )
         );
 
-        return response()->noContent();
+        return to_route('builds.show', $build);
     }
 
     /**
      * Remove the build from storage.
      *
      * @param  \App\Models\Build $build
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Build $build)
     {
         $build->delete();
 
-        return response()->noContent();
+        return to_route('builds');
     }
 }

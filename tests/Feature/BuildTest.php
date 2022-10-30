@@ -102,7 +102,7 @@ it('can be updated', function () {
         'title' => 'new title',
         'description' => 'new description',
     ])
-    ->assertNoContent();
+    ->assertRedirect('/builds/' . $build->slug);
 
     assertDatabaseHas(Build::class, [
         'title' => 'new title',
@@ -126,7 +126,7 @@ it('can be deleted', function () {
         ->create();
 
     delete('/builds/'.$build->id)
-        ->assertNoContent();
+        ->assertRedirect('/builds');
 
     assertDatabaseMissing(Build::class, $build->toArray());
 });
