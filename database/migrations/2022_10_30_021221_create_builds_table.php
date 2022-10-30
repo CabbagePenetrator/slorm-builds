@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('character');
             $table->string('title', 50);
             $table->string('slug', 100)->nullable()->index();
-            $table->string('description', 200);
+            $table->string('description', 200)->nullable();
             $table->timestamps();
         });
     }
