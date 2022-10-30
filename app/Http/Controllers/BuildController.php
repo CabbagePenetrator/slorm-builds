@@ -12,12 +12,13 @@ class BuildController extends Controller
     /**
      * Display all builds.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Inertia\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia('Builds/Index', [
-            'builds' => Build::all(),
+            'builds' => Build::filter($request->only('character'))->get(),
         ]);
     }
 

@@ -38,7 +38,7 @@ const upload = async event => {
   <Layout>
     <form
       @submit.prevent="submit"
-      class="w-full border-4 border-gray-600 bg-gray-900 px-4 pt-6 pb-8 sm:max-w-[470px] sm:px-12 sm:pt-7"
+      class="mx-auto w-full border-4 border-gray-600 bg-gray-900 px-4 pt-6 pb-8 sm:max-w-[470px] sm:px-12 sm:pt-7"
     >
       <h1 class="text-3xl">Create build</h1>
       <label

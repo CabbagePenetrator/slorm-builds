@@ -14,6 +14,7 @@ use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
+use function Pest\Laravel\withoutExceptionHandling;
 
 uses(RefreshDatabase::class);
 
@@ -32,6 +33,22 @@ it('can view all', function () {
             fn (Assert $page) => $page
                 ->component('Builds/Index')
                 ->has('builds', 3)
+        );
+});
+
+it('can filter builds', function () {
+    Build::factory()->create([
+        'character' => CharacterClass::HUNTRESS->value,
+    ]);
+
+    Build::factory()->create([
+        'character' => CharacterClass::WARRIOR->value,
+    ]);
+
+    get('/builds?character='.CharacterClass::WARRIOR->value)
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Builds/Index')
+            ->has('builds', 1)
         );
 });
 

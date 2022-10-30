@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Enums\CharacterClass;
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Build extends Model
 {
@@ -43,5 +44,19 @@ class Build extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(Build::class);
+    }
+
+    /**
+     * Scope a query to only include filtered builds.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  array $filters
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilter(Builder $query, array $filters)
+    {
+        return $query->when(isset($filters['character']), function ($query) use ($filters) {
+            $query->where('character', $filters['character']);
+        });
     }
 }
