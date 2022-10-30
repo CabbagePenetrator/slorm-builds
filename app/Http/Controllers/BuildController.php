@@ -3,19 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Build;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BuildController extends Controller
 {
     /**
-     * Display all builds
+     * Display the user's builds.
      *
+     * @return \Illuminate\Http\Request
      * @return \Inertia\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia('Builds/Index', [
-            'builds' => Build::all(),
+            'builds' => $request->user()
+                ->builds()
+                ->get(),
         ]);
     }
 
@@ -43,7 +47,7 @@ class BuildController extends Controller
             'description' => ['nullable', 'string', 'max:200'],
         ]);
 
-        $build = Build::create(
+        $build = $request->user()->builds()->create(
             $request->only(
                 'title',
                 'description'

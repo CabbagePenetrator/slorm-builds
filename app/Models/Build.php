@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Build extends Model
 {
@@ -22,5 +23,15 @@ class Build extends Model
                 'source' => 'title',
             ],
         ];
+    }
+
+    /**
+     * The build's user.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(Build::class);
     }
 }

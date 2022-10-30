@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,11 @@ return new class extends Migration
     {
         Schema::create('builds', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignIdFor(User::class)->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->string('title', 50);
             $table->string('slug', 100)->nullable()->index();
             $table->string('description', 200);

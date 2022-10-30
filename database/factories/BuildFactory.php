@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class BuildFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => fn() => User::factory()->create()->id,
             'title' => fake()->text(50),
             'description' => fake()->text(200),
         ];

@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\Build;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
+
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\delete;
@@ -13,8 +16,16 @@ use function Pest\Laravel\put;
 
 uses(RefreshDatabase::class);
 
+beforeEach(function () {
+    $this->user = User::factory()->create();
+    actingAs($this->user);
+});
+
 it('can view all', function () {
-    $builds = Build::factory()->count(3)->create();
+    Build::factory()
+        ->count(3)
+        ->for($this->user)
+        ->create();
 
     get('/builds')
         ->assertInertia(

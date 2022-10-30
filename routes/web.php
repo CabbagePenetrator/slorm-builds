@@ -35,22 +35,27 @@ Route::get('/builds', [BuildController::class, 'index'])
     ->name('builds');
 
 Route::get('/builds/create', [BuildController::class, 'create'])
-    ->name('builds.create');
+    ->name('builds.create')
+    ->middleware('auth');
 
 Route::post('/builds', [BuildController::class, 'store'])
-    ->name('builds.store');
+    ->name('builds.store')
+    ->middleware('auth');
 
 Route::get('/builds/{build:slug}', [BuildController::class, 'show'])
     ->name('builds.show');
 
 Route::get('/builds/{build:slug}/edit', [BuildController::class, 'edit'])
-    ->name('builds.edit');
+    ->name('builds.edit')
+    ->middleware('auth');
 
 Route::put('/builds/{build}', [BuildController::class, 'update'])
-    ->name('builds.update');
+    ->name('builds.update')
+    ->middleware('auth');
 
 Route::delete('/builds/{build}', [BuildController::class, 'destroy'])
-    ->name('builds.destroy');
+    ->name('builds.destroy')
+    ->middleware('auth');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
