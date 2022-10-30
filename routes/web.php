@@ -47,15 +47,18 @@ Route::get('/builds/{build:slug}', [BuildController::class, 'show'])
 
 Route::get('/builds/{build:slug}/edit', [BuildController::class, 'edit'])
     ->name('builds.edit')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->can('update', 'build');
 
 Route::put('/builds/{build}', [BuildController::class, 'update'])
     ->name('builds.update')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->can('update', 'build');
 
 Route::delete('/builds/{build}', [BuildController::class, 'destroy'])
     ->name('builds.destroy')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->can('delete', 'build');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

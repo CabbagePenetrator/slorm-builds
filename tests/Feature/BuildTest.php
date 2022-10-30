@@ -73,7 +73,9 @@ it('can be viewed', function () {
 });
 
 it('can view edit form', function () {
-    $build = Build::factory()->create();
+    $build = Build::factory()
+        ->for($this->user)
+        ->create();
 
     get('/builds/' . $build->slug . '/edit')
         ->assertInertia(
@@ -82,11 +84,20 @@ it('can view edit form', function () {
         );
 });
 
+it('can only be edited by author', function () {
+    $build = Build::factory()->create();
+
+    get('/builds/' . $build->slug . '/edit')
+        ->assertForbidden();
+});
+
 it('can be updated', function () {
-    $build = Build::factory()->create([
-        'title' => 'old title',
-        'description' => 'old description',
-    ]);
+    $build = Build::factory()
+        ->for($this->user)
+        ->create([
+            'title' => 'old title',
+            'description' => 'old description',
+        ]);
 
     put('/builds/' . $build->id, [
         'title' => 'new title',
@@ -100,11 +111,30 @@ it('can be updated', function () {
     ]);
 });
 
-it('can be deleted', function () {
+it('can only updated by the author', function () {
     $build = Build::factory()->create();
+
+    put('/builds/' . $build->id, [
+        'title' => 'new title',
+        'description' => 'new description',
+    ])
+    ->assertForbidden();
+});
+
+it('can be deleted', function () {
+    $build = Build::factory()
+        ->for($this->user)
+        ->create();
 
     delete('/builds/'.$build->id)
         ->assertNoContent();
 
     assertDatabaseMissing(Build::class, $build->toArray());
+});
+
+it('can only deleted by the author', function () {
+    $build = Build::factory()->create();
+
+    delete('/builds/' . $build->id)
+        ->assertForbidden();
 });
