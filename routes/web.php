@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\SavesController;
 use App\Http\Controllers\CharactersController;
+use App\Http\Controllers\BuildController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,28 @@ Route::get('/save/{save}', [SavesController::class, 'show'])
 
 Route::post('/characters', CharactersController::class)
     ->name('characters');
+
+/** Builds */
+Route::get('/builds', [BuildController::class, 'index'])
+    ->name('builds');
+
+Route::get('/builds/create', [BuildController::class, 'create'])
+    ->name('builds.create');
+
+Route::post('/builds', [BuildController::class, 'store'])
+    ->name('builds.store');
+
+Route::get('/builds/{build:slug}', [BuildController::class, 'show'])
+    ->name('builds.show');
+
+Route::get('/builds/{build:slug}/edit', [BuildController::class, 'edit'])
+    ->name('builds.edit');
+
+Route::put('/builds/{build}', [BuildController::class, 'update'])
+    ->name('builds.update');
+
+Route::delete('/builds/{build}', [BuildController::class, 'destroy'])
+    ->name('builds.destroy');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
