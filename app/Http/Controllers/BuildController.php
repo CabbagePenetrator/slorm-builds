@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Build;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Enums\CharacterClass;
+use Illuminate\Validation\Rules\Enum;
 
 class BuildController extends Controller
 {
@@ -40,12 +41,14 @@ class BuildController extends Controller
     {
         $request->validate([
             'file' => ['required', 'file', 'max:1024', 'mimetypes:text/plain'],
+            'character' => ['required', new Enum(CharacterClass::class)],
             'title' => ['required', 'string', 'max:50'],
             'description' => ['nullable', 'string', 'max:200'],
         ]);
 
         $build = $request->user()->builds()->create(
             $request->only(
+                'character',
                 'title',
                 'description'
             )

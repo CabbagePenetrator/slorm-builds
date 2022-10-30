@@ -21,6 +21,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->unsignedTinyInteger('character');
             $table->string('title', 50);
             $table->string('slug', 100)->nullable()->index();
             $table->string('description', 200);

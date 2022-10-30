@@ -22,14 +22,17 @@ it('can get characters', function () {
             [
                 'name' => CharacterClass::WARRIOR->name(),
                 'level' => 1,
+                'value' => CharacterClass::WARRIOR->value,
             ],
             [
                 'name' => CharacterClass::HUNTRESS->name(),
                 'level' => 1,
+                'value' => CharacterClass::HUNTRESS->value,
             ],
             [
                 'name' => CharacterClass::MAGE->name(),
                 'level' => 60,
+                'value' => CharacterClass::MAGE->value,
             ]
         ]);
 });

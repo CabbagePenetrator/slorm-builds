@@ -35,14 +35,17 @@ class CharacterController extends Controller
             [
                 'name' => CharacterClass::WARRIOR->name(),
                 'level' => $warriorLevel,
+                'value' => CharacterClass::WARRIOR->value,
             ],
             [
                 'name' => CharacterClass::HUNTRESS->name(),
                 'level' => $huntressLevel,
+                'value' => CharacterClass::HUNTRESS->value,
             ],
             [
                 'name' => CharacterClass::MAGE->name(),
                 'level' => $mageLevel,
+                'value' => CharacterClass::MAGE->value,
             ],
         ]);
     }

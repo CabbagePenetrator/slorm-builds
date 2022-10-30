@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\CharacterClass;
 use App\Models\Build;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -50,12 +51,14 @@ it('can be created', function () {
 
     post('/builds', [
         'file' => $file,
+        'character' => CharacterClass::MAGE->value,
         'title' => 'New build',
         'description' => 'Build description',
     ])
     ->assertRedirect('/builds/new-build');
 
     assertDatabaseHas(Build::class, [
+        'character' => CharacterClass::MAGE->value,
         'title' => 'New build',
         'description' => 'Build description',
     ]);

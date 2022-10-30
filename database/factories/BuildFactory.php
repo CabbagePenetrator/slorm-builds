@@ -19,6 +19,7 @@ class BuildFactory extends Factory
     {
         return [
             'user_id' => fn() => User::factory()->create()->id,
+            'character' => fake()->numberBetween(0, 2),
             'title' => fake()->text(50),
             'description' => fake()->text(200),
         ];
