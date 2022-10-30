@@ -24,7 +24,6 @@ beforeEach(function () {
 it('can view all', function () {
     Build::factory()
         ->count(3)
-        ->for($this->user)
         ->create();
 
     get('/builds')

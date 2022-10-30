@@ -9,17 +9,14 @@ use Illuminate\Http\Request;
 class BuildController extends Controller
 {
     /**
-     * Display the user's builds.
+     * Display all builds.
      *
-     * @return \Illuminate\Http\Request
      * @return \Inertia\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         return inertia('Builds/Index', [
-            'builds' => $request->user()
-                ->builds()
-                ->get(),
+            'builds' => Build::all(),
         ]);
     }
 
